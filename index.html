@@ -6,7 +6,7 @@
     <title>Serratec | Collector Deck</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts Épica -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -21,85 +21,123 @@
             text-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
         }
         .navbar { background: rgba(0,0,0,0.95) !important; border-bottom: 1px solid #333; }
+        
+        /* Estilos exclusivos da Landing Page */
+        .hero-section {
+            padding: 100px 0;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(241, 196, 15, 0.3);
+            transition: 0.3s;
+            border-radius: 15px;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #f1c40f;
+        }
+        .btn-gold {
+            background-color: #f1c40f;
+            color: black;
+            font-weight: bold;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            transition: 0.4s;
+        }
+        .btn-gold:hover {
+            background-color: #d4ac0d;
+            box-shadow: 0 0 20px #f1c40f;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Navbar ATUALIZADA -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold hero-title fs-3" href="index.html">SERRATEC COLLECTOR</a>
-            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <!-- Link para a página que mostra todas as cartas -->
-                        <a class="nav-link" href="catalogo.html">Cartas Disponíveis</a>
-                    </li>
-                     <li class="nav-item"><a class="nav-link text-warning fw-bold" href="colecao.html">✨ Minha Coleção &nbsp;</a>
-                    </li>
-                    <li class="nav-item mx-lg-3">
-                        <a class="btn btn-outline-warning position-relative" href="cart.html">
-                            🛒 Meu Carrinho
-                            <span id="cart-count" class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle">0</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <button onclick="logoutSerratec()" class="btn btn-sm btn-danger">Sair</button>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalogo.html">Grimório</a></li>
+                    <li class="nav-item"><a class="nav-link text-warning" href="colecao.html">✨ Minha Coleção</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button onclick="logoutSerratec()" class="btn btn-sm btn-outline-danger">Sair</button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Header & Filtros -->
-    <header class="container my-5 text-center">
-        <h1 class="display-3 hero-title mb-2">GRIMÓRIO DE CARDS</h1>
-        <p class="text-white-50 mb-5">Colecione os lendários mestres e alunos do Serratec 2026</p>
-        
-        <div class="row g-3 justify-content-center bg-dark p-4 rounded-4 shadow-lg border border-secondary">
-            <div class="col-md-6">
-                <input type="text" id="searchInput" class="form-control bg-black text-white border-secondary p-3" placeholder="Buscar por nome do mestre...">
-            </div>
-            <div class="col-md-4">
-                <select id="filterType" class="form-select bg-black text-white border-secondary p-3">
-                    <option value="all">Todas as Classes</option>
-                    <option value="Logica de Programação">Lógica de Programação</option>
-                    <option value="Banco de Dados">Banco de Dados</option>
-                    <option value="Alunos">Alunos</option>
-                    <option value="POO">POO</option>
-                    <option value="POO">Front End</option>
-                </select>
-            </div>
+    <!-- Seção Hero (Apresentação Principal) -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-1 hero-title mb-3">O DESTINO DO CÓDIGO</h1>
+            <p class="lead text-white-50 fs-4 mb-5">Colecione os mestres lendários e forje seu deck rumo à senioridade.</p>
+            <a href="catalogo.html" class="btn btn-gold btn-lg shadow-lg">COMEÇAR MINHA JORNADA</a>
         </div>
     </header>
 
-    <!-- Container dos Cards -->
-    <main class="container mb-5">
-        <!-- Onde a mágica acontece via js/main.js -->
-        <div id="card-container" class="row row-cols-1 row-cols-md-3 g-4">
-            <!-- Cards injetados aqui -->
+    <!-- História do Projeto -->
+    <section class="container my-5 py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="hero-title mb-4">A Lenda do Serratec</h2>
+                <p class="text-white-50 fs-5">Em 2026, o conhecimento se tornou a moeda mais valiosa do mundo. No coração das montanhas, uma guilda de mestres se reuniu para ensinar as artes proibidas da Lógica, do Banco de Dados e das Interfaces Mágicas.</p>
+                <p class="text-white-50 fs-5">Sua missão é colecionar as cartas destes mestres, absorver suas habilidades e montar o deck mais poderoso já visto na Residência de Software.</p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="img/Raphael.png" alt="Destaque" class="img-fluid rounded-circle shadow-lg border border-warning p-2" style="max-width: 300px; filter: grayscale(30%);">
+            </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Destaques (Features) -->
+    <section class="bg-black py-5">
+        <div class="container text-center">
+            <h2 class="hero-title mb-5">Por que colecionar?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card p-4 h-100">
+                        <div class="fs-1 mb-3 text-warning">🛡️</div>
+                        <h4 class="text-warning">Mestres Reais</h4>
+                        <p class="text-white-50">Cards baseados nos verdadeiros professores do Serratec com suas habilidades únicas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card p-4 h-100">
+                        <div class="fs-1 mb-3 text-warning">🔮</div>
+                        <h4 class="text-warning">Grimório Infinito</h4>
+                        <p class="text-white-50">Dezenas de cartas entre mestres e alunos para criar combinações estratégicas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card p-4 h-100">
+                        <div class="fs-1 mb-3 text-warning">🏆</div>
+                        <h4 class="text-warning">Coleção Pessoal</h4>
+                        <p class="text-white-50">Uma pasta exclusiva para guardar suas conquistas e mostrar sua evolução.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-black text-white-50 py-4 mt-auto border-top border-secondary">
-        <div class="container text-center">
+    <footer class="bg-black text-white-50 py-4 mt-auto border-top border-secondary text-center">
+        <div class="container">
             <small>© 2026 Serratec Deck Builder - O conhecimento é sua melhor carta.</small>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Sua lógica central -->
-    <script src="js/main.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/base.js"></script>
 </body>
 </html>

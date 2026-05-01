@@ -97,3 +97,27 @@ body {
     color: #000;
     border-color: #f1c40f;
 }
+
+/* Ajuste global para as cartas do catálogo */
+.card-item {
+    max-width: 280px; /* Limita a largura máxima para não ficar gigante em telas grandes */
+    margin: 0 auto;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.card-item .card-img-top {
+    height: 320px; /* Altura fixa para a imagem */
+    object-fit: contain; /* Faz a imagem inteira caber dentro do espaço sem cortar */
+    background-color: #000; /* Fundo preto para preencher se a imagem for menor */
+    padding: 10px;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}

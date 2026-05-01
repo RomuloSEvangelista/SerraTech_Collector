@@ -87,7 +87,7 @@ function renderizarTodoCatalogo(listaDeCartas) {
                         <h5 class="card-title fw-bold" style="font-family: 'Cinzel', serif;">${card.name}</h5>
                         <p class="small text-light fst-italic">"${card.desc}"</p>
                         <p class="text-warning fw-bold mt-auto fs-5">R$ ${card.price.toFixed(2).replace('.', ',')}</p>
-                        <!-- Reutilizamos a função addToCart que está no main.js -->
+                        <!-- Reutilizamos a função addToCart que está no base.js -->
                         <button onclick="addToCart(${card.id})" class="btn btn-outline-light w-100 mt-2">
                             Adicionar ao Deck
                         </button>

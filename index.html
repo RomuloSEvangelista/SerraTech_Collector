@@ -80,11 +80,11 @@
                         const usuarioLogado = localStorage.getItem('usuarioLogado');
                         if (usuarioLogado) {
                             // Se estiver logado, vai para a página de perfil
-                            window.location.href = "./login/perfil.html";
+                            window.location.href = "login/perfil.html";
                         } else {
                             // Se não estiver logado, vai para o login
                             alert("Acesso restrito a Mestres. Por favor, faça login.");
-                            window.location.href = "./login/login.html";
+                            window.location.href = "../login/login.html";
                         }
                     });
                     </script>

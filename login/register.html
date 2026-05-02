@@ -16,7 +16,7 @@
     </style>
 </head>
 <body class="d-flex align-items-center">
-    <main class="container">
+    <main class="container py-5">
         <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card card-auth shadow-lg rounded-4">
@@ -28,11 +28,11 @@
                        
                         <form id="registerForm">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">E-mail</label>
+                                <label class="form-label fw-semibold">E-mail de Cadastro</label>
                                 <input type="email" class="form-control" id="regEmail" placeholder="seu@email.com" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Sua Senha</label>
+                                <label class="form-label fw-semibold">Crie uma Senha</label>
                                 <input type="password" class="form-control" id="regPassword" placeholder="Mínimo 6 dígitos" required>
                             </div>
                             <div class="mb-4">
@@ -40,18 +40,23 @@
                                 <input type="password" class="form-control" id="confirmPassword" placeholder="Repita a senha" required>
                             </div>
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-outline-gold btn-lg">CRIAR CONTA</button>
+                                <button type="submit" class="btn btn-outline-gold btn-lg">CRIAR MINHA CONTA</button>
                                 <a href="login.html" class="btn btn-link btn-sm text-white-50 mt-2">Já tenho uma conta</a>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="text-center mt-4">
+
+                <div class="text-center mt-4">
                     <a href="../index.html" class="text-decoration-none text-white-50 small">← Voltar ao Início</a>
                 </div>
+            </div>
         </div>
     </main>
-    <script src="js/auth.js"></script>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Importante: O script de usuário deve estar na pasta js da raiz -->
+    <script src="usuarioScript.js"></script>
 </body>
 </html>

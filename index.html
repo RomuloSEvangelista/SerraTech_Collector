@@ -59,6 +59,7 @@
 <body class="d-flex flex-column min-vh-100">
 
     <!-- Navbar -->
+     
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold hero-title fs-3" href="index.html">SERRATEC COLLECTOR</a>
@@ -67,12 +68,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
+
                     <li class="nav-item"><a class="nav-link active" href="index.html">Início</a></li>
                     <li class="nav-item"><a class="nav-link" href="colecao/catalogo.html">Grimório</a></li>
                     <li class="nav-item"><a class="nav-link text-warning" href="colecao/colecao.html">✨ Minha Coleção</a></li>
+                    <!-- Botão Perfil com if, se não estiver logado leva a tela de login -->
+                    <a href="#" id="linkPerfil" class="btn btn-outline-light btn-sm px-3">Perfil</a>
+                    <script>
+                    document.getElementById('linkPerfil').addEventListener('click', (e) => {
+                        e.preventDefault(); // Impede o link de abrir imediatamente
+                        const usuarioLogado = localStorage.getItem('usuarioLogado');
+                        if (usuarioLogado) {
+                            // Se estiver logado, vai para a página de perfil
+                            window.location.href = "./login/perfil.html";
+                        } else {
+                            // Se não estiver logado, vai para o login
+                            alert("Acesso restrito a Mestres. Por favor, faça login.");
+                            window.location.href = "../login/login.html";
+                        }
+                    });
+                    </script>
+
                     <!-- Botão de Sair só aparece se houver usuário logado (tratado via JS ou CSS básico) -->
                     <li class="nav-item ms-lg-3" id="menu-logout" style="display: none;">
                         <button onclick="logoutSerratec()" class="btn btn-sm btn-outline-danger">Sair</button>
+                        
                     </li>
                 </ul>
             </div>

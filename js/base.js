@@ -1,4 +1,6 @@
-// 1. BANCO DE DADOS
+// ==========================================
+// 1. BANCO DE DADOS (DATA)
+// ==========================================
 const cardsData = [
     { id: 1, name: "Prof. Raphael", price: 80.00, type: "Logica de Programação", img: "../img/Raphael.png", desc: "Loop Infinito de Conhecimento." },
     { id: 2, name: "Prof. Romulo", price: 65.00, type: "Banco de Dados", img: "../img/Romulo.png", desc: "Habilidade: Aprende enquanto ensina." },
@@ -7,14 +9,45 @@ const cardsData = [
     { id: 5, name: "Prof. Menegueli", price: 85.00, type: "Front End", img: "../img/menegueli.png", desc: "Mestre das interfaces." }
 ];
 
-// 2. FUNÇÕES DE SESSÃO E NAVEGAÇÃO
+// ==========================================
+// 2. GESTÃO DE SESSÃO E ACESSO
+// ==========================================
 function logoutSerratec() {
     localStorage.removeItem('usuarioLogado');
     alert("Sessão encerrada!");
     window.location.href = "../login/login.html";
 }
 
-// 3. GESTÃO DO CARRINHO (COMPRA TEMPORÁRIA)
+function verificarProtecaoDeRota() {
+    const path = window.location.pathname;
+    const paginaAtual = path.split("/").pop();
+    const usuarioLogado = localStorage.getItem('usuarioLogado');
+
+    // Páginas que QUALQUER UM pode ver
+    const paginasPublicas = ["", "index.html", "login.html", "register.html"];
+    const ehPaginaPublica = paginasPublicas.includes(paginaAtual);
+
+    if (!usuarioLogado && !ehPaginaPublica) {
+        alert("Acesso restrito! Por favor, faça login para continuar.");
+        // Redirecionamento inteligente baseado na pasta atual
+        const destino = (paginaAtual === "catalogo.html" || paginaAtual === "colecao.html") 
+            ? "../login/login.html" 
+            : "./login/login.html";
+        window.location.href = destino;
+        return false;
+    }
+    return true;
+}
+
+// ==========================================
+// 3. SISTEMA DE CARRINHO E COMPRA
+// ==========================================
+window.updateCartCounter = function() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const counter = document.getElementById('cart-count');
+    if (counter) counter.innerText = cart.length;
+};
+
 window.addToCart = function(id) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const product = cardsData.find(p => p.id === id);
@@ -27,13 +60,6 @@ window.addToCart = function(id) {
     }
 };
 
-window.updateCartCounter = function() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const counter = document.getElementById('cart-count');
-    if (counter) counter.innerText = cart.length;
-};
-
-// 4. LÓGICA DE COMPRA (TRANSFERE PARA A COLEÇÃO PERMANENTE DO USUÁRIO)
 window.finalizarCompra = function() {
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
     const carrinho = JSON.parse(localStorage.getItem('cart')) || [];
@@ -48,7 +74,6 @@ window.finalizarCompra = function() {
         return;
     }
 
-    // Identifica a chave única usando o email ou id do usuário
     const usuarioId = usuarioLogado.email || usuarioLogado["e-mail"];
     const chaveColecao = `deck_${usuarioId}`;
     
@@ -62,7 +87,9 @@ window.finalizarCompra = function() {
     window.location.href = "../colecao/colecao.html";
 };
 
-// 5. RENDERIZAÇÃO E FILTROS
+// ==========================================
+// 4. INTERFACE (RENDERIZAÇÃO E FILTROS)
+// ==========================================
 function renderizarCards(lista) {
     const container = document.getElementById('card-container');
     if (!container) return;
@@ -108,26 +135,20 @@ function aplicarFiltros() {
     renderizarCards(listaFiltrada);
 }
 
-// 6. INICIALIZAÇÃO E EVENTOS
+// ==========================================
+// 5. INICIALIZAÇÃO (BOOTSTRAP DA APP)
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificação básica de login
-    if (!localStorage.getItem('usuarioLogado')) {
-        // Se não estiver no login ou index, manda para o login
-        const path = window.location.pathname;
-        if (!path.includes("login.html") && !path.endsWith("index.html") && path !== "/") {
-            window.location.href = "../login/login.html";
-            return;
-        }
-    }
+    // Verifica se o usuário tem permissão para estar nesta página
+    if (!verificarProtecaoDeRota()) return;
 
-    // Só renderiza se estiver na página que tem o container
+    // Se a página possuir o container de cartas, renderiza e ativa filtros
     if (document.getElementById('card-container')) {
         renderizarCards(cardsData);
-        
-        // Ativa os listeners de filtro apenas se os elementos existirem
         document.getElementById('searchInput')?.addEventListener('input', aplicarFiltros);
         document.getElementById('filterType')?.addEventListener('change', aplicarFiltros);
     }
-    
+
+    // Atualiza interface do carrinho
     updateCartCounter();
 });

@@ -127,7 +127,7 @@ function updateCartCounterCatalogo() {
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Proteção de rota (Opcional, mas boa prática, já que está no main.js também)
     if (!localStorage.getItem('usuarioLogado')) {
-        window.location.replace("login.html");
+        window.location.replace("../login/login.html");
         return;
     }
 

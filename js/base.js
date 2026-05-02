@@ -10,7 +10,7 @@ const cardsData = [
 // 2. FUNÇÕES DE SESSÃO E NAVEGAÇÃO
 window.logoutSerratec = function() {
     localStorage.removeItem('usuarioLogado');
-    window.location.href = "login.html";
+    window.location.href = "./login/login.html";
 };
 
 // 3. GESTÃO DO CARRINHO (COMPRA TEMPORÁRIA)
@@ -53,7 +53,7 @@ window.finalizarCompra = function() {
     localStorage.removeItem('cart');
     
     alert("Compra realizada com sucesso! Verifique sua coleção.");
-    window.location.href = "colecao.html";
+    window.location.href = "../colecao/colecao.html";
 };
 
 // 5. RENDERIZAÇÃO E FILTROS
@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Proteção de Rota: Só redireciona se NÃO for o index ou o login
     // Permitimos que o usuário veja o index.html sem estar logado
     if (!localStorage.getItem('usuarioLogado')) {
-        if (paginaAtual !== "index.html" && paginaAtual !== "login.html" && paginaAtual !== "") {
-            window.location.href = "login.html";
+        if (paginaAtual !== "index.html" && paginaAtual !== "./login/login.html" && paginaAtual !== "") {
+            window.location.href = "./login/login.html";
             return; 
         }
     }

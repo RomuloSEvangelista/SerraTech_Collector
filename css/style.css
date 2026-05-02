@@ -25,27 +25,27 @@ body {
 
 /* --- Grid de Cards Estilo TCG (Trading Card Game) --- */
 .card-item {
-    background: #1a1a1a; /* Fundo sólido escuro para as artes de IA */
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: #121212 !important;
+    border: 1px solid rgba(241, 196, 15, 0.2);
     border-radius: 15px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
+    height: 100%;
+
 }
 
 /* Efeito de Hover: Aumenta, rotaciona levemente e brilha */
 .card-item:hover {
-    transform: scale(1.05) rotate(1deg);
-    box-shadow: 0 0 25px rgba(241, 196, 15, 0.4) !important;
-    border-color: #f1c40f !important; /* Borda Dourada no Hover */
+    transform: scale(1.03);
+    border-color: #f1c40f;
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
 }
 
 /* Imagem do Card */
 .card-img-top {
-    height: 380px; 
-    object-fit: cover;
-    padding: 8px; /* Espaço para parecer uma moldura de carta física */
-    filter: saturate(1.1) contrast(1.1);
+   display: block;
+    margin: 0 auto;
+    /* O 'contain' impede o corte das bordas da imagem */
+    object-fit: contain !important;
 }
 
 /* Corpo do Card */
@@ -100,17 +100,17 @@ body {
 
 /* Ajuste global para as cartas do catálogo */
 .card-item {
-    max-width: 280px; /* Limita a largura máxima para não ficar gigante em telas grandes */
-    margin: 0 auto;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
+    height: 380px !important; /* Altura fixa para alinhar o grid */
+    width: 100%;
+    object-fit: contain !important; /* MOSTRA A CARTA INTEIRA */
+    background-color: #000; /* Preenche o fundo se a imagem for estreita */
+    padding: 10px; /* Espaço para a moldura respirar */
 }
 
 .card-item .card-img-top {
-    height: 320px; /* Altura fixa para a imagem */
-    object-fit: contain; /* Faz a imagem inteira caber dentro do espaço sem cortar */
-    background-color: #000; /* Fundo preto para preencher se a imagem for menor */
-    padding: 10px;
+    background: #121212 !important;
+    border: 1px solid rgba(241, 196, 15, 0.2);
+    transition: all 0.3s ease;
 }
 
 .card-body {

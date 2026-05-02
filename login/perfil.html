@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil | Serratec Collector</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: radial-gradient(circle, #1a1a2e 0%, #000000 100%); 
+            font-family: 'Inter', sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main { flex: 1; }
+        .hero-title { font-family: 'Cinzel', serif; color: #f1c40f; text-shadow: 0 0 15px rgba(241, 196, 15, 0.3); }
+        .card-perfil { background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(241, 196, 15, 0.2); }
+        .form-label { color: #f1c40f; font-size: 0.8rem; text-transform: uppercase; font-weight: bold; }
+        .form-control { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; }
+        .btn-gold { background: #f1c40f; color: black; font-weight: bold; border: none; transition: 0.3s; }
+        .btn-gold:hover { background: #ffda44; transform: translateY(-2px); box-shadow: 0 0 15px rgba(241, 196, 15, 0.4); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-black border-bottom border-secondary mb-5">
+        <div class="container">
+            <a class="navbar-brand hero-title fs-3" href="../index.html">SERRATEC</a>
+            <a href="catalogo.html" class="btn btn-outline-light btn-sm">Voltar ao Catálogo</a>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card card-perfil shadow-lg rounded-4">
+                    <div class="card-body p-4 p-md-5">
+                        <h2 class="hero-title text-center mb-4">Configurações de Perfil</h2>
+                        
+                        <form id="perfilForm">
+                            <div class="mb-3">
+                                <label class="form-label">Nome de Mestre</label>
+                                <input type="text" class="form-control" id="editNome" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">E-mail (Login)</label>
+                                <input type="email" class="form-control" id="editEmail" required>
+                            </div>
+                            <hr class="border-secondary my-4">
+                            <div class="mb-3">
+                                <label class="form-label">Nova Senha (deixe vazio para não alterar)</label>
+                                <input type="password" class="form-control" id="novaSenha">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label text-danger">Senha Atual (Para confirmar alterações)</label>
+                                <input type="password" class="form-control" id="senhaConfirmacao" required>
+                            </div>
+                            <button type="submit" class="btn btn-gold w-100 btn-lg">SALVAR ALTERAÇÕES</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-black text-white-50 py-4 border-top border-secondary text-center w-100">
+        <div class="container">
+            <small>© 2026 Serratec Deck Builder - O conhecimento é sua melhor carta.</small>
+        </div>
+    </footer>
+
+    <script src="../js/base.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (!usuarioLogado) {
+                window.location.href = "../login/login.html";
+                return;
+            }
+
+            // Preenche os campos com os dados atuais
+            document.getElementById('editNome').value = usuarioLogado.nome || "";
+            document.getElementById('editEmail').value = usuarioLogado.email || usuarioLogado["e-mail"];
+
+            document.getElementById('perfilForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const senhaConfirmacao = document.getElementById('senhaConfirmacao').value;
+                const novaSenha = document.getElementById('novaSenha').value;
+                const novoEmail = document.getElementById('editEmail').value;
+                const novoNome = document.getElementById('editNome').value;
+
+                // 1. Validar senha atual
+                if (senhaConfirmacao !== usuarioLogado.senha) {
+                    alert("Senha atual incorreta! As alterações não foram salvas.");
+                    return;
+                }
+
+                // 2. Atualizar objeto do usuário
+                usuarioLogado.nome = novoNome;
+                usuarioLogado.email = novoEmail;
+                usuarioLogado["e-mail"] = novoEmail; // Mantém compatibilidade
+                
+                if (novaSenha.trim() !== "") {
+                    usuarioLogado.senha = novaSenha;
+                }
+
+                // 3. Salvar no localStorage (Atualiza sessão)
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+
+                // 4. (Opcional) Atualizar na lista de usuários cadastrados
+                const usuariosCadastrados = JSON.parse(localStorage.getItem('usuarios')) || [];
+                const index = usuariosCadastrados.findIndex(u => (u.email || u["e-mail"]) === novoEmail);
+                if (index !== -1) {
+                    usuariosCadastrados[index] = usuarioLogado;
+                    localStorage.setItem('usuarios', JSON.stringify(usuariosCadastrados));
+                }
+
+                alert("Perfil atualizado com sucesso!");
+                location.reload();
+            });
+        });
+    </script>
+</body>
+</html>

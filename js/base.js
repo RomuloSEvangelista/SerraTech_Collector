@@ -100,7 +100,7 @@ function renderizarCards(lista) {
                 <img src="${card.img}" 
                      class="card-img-top p-2" 
                      alt="${card.name}"
-                     style="height: 320px; object-fit: cover;"
+                     style="height: 350px; width: 100%; object-fit: contain; background: #000;"
                      onerror="this.onerror=null; this.src='../img/padrao.png';"> 
                 
                 <div class="card-body text-center d-flex flex-column">

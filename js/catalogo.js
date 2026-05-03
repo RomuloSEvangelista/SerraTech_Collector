@@ -6,7 +6,7 @@
 const cartasDisponiveis = [
     { id: 1,  name: "Prof. Raphael",   type: "Logica de Programação", img: "../img/Raphael.png",   desc: "Poder especial: Loop Infinito de Conhecimento." },
     { id: 2,  name: "Prof. Romulo",    type: "Banco de Dados",        img: "../img/Romulo.png",    desc: "Habilidade: Aprende enquanto ensina." },
-    { id: 3,  name: "Ivy",             type: "Alunos",                img: "../img/ivy.png",       desc: "Aluna dedicado." },
+    { id: 3,  name: "Ivy",             type: "Alunos",                img: "../img/ivy.png",       desc: "Aluna dedicada." },
     { id: 4,  name: "Prof. Breno",     type: "POO",                   img: "../img/breno.png",     desc: "Mago POO." },
     { id: 5,  name: "Prof. Menegueli", type: "Front End",             img: "../img/menegueli.png", desc: "Mestre do Front End." },
     { id: 6,  name: "Leilton",         type: "Alunos",                img: "../img/Leilton.png",   desc: "Aluno dedicado." },
@@ -14,16 +14,16 @@ const cartasDisponiveis = [
     { id: 8,  name: "Gabriel",         type: "Alunos",                img: "../img/Gabriel.png",   desc: "Aluno dedicado." },
     { id: 9,  name: "Icaro",           type: "Alunos",                img: "../img/Icaro.png",     desc: "Aluno dedicado." },
     { id: 10, name: "Guilherme",       type: "Alunos",                img: "../img/Guilherme.png", desc: "Aluno dedicado." },
-    { id: 11, name: "Marcos",          type: "Alunos",                img: "../img/marcos.png",    desc: "Aluno dedicado." },
-    { id: 12, name: "Profa. Julia",    type: "Alunos",                img: "../img/julia.png",     desc: "Aluna dedicada." },
-    { id: 13, name: "Prof. Fabio",     type: "Alunos",                img: "../img/fabio.png",     desc: "Aluno dedicado." },
-    { id: 14, name: "Marina",          type: "Alunos",                img: "../img/marina.png",    desc: "Aluna dedicada." },
-    { id: 15, name: "Prof. Andre",     type: "Alunos",                img: "../img/andre.png",     desc: "Aluno dedicado." },
-    { id: 16, name: "Beatriz",         type: "Alunos",                img: "../img/beatriz.png",   desc: "Aluna dedicada." },
-    { id: 17, name: "Prof. Thiago",    type: "Alunos",                img: "../img/thiago.png",    desc: "Aluno dedicado." },
-    { id: 18, name: "Sofia",           type: "Alunos",                img: "../img/sofia.png",     desc: "Aluna dedicada." },
-    { id: 19, name: "Igor Rocha",      type: "Alunos",                img: "../img/igor.png",      desc: "Aluno dedicado." },
-    { id: 20, name: "Leticia Paz",     type: "Alunos",                img: "../img/leticia.png",   desc: "Aluna dedicada." }
+    { id: 11, name: "Wenderson",       type: "Alunos",                img: "../img/Wenderson.png", desc: "Aluno dedicado." },
+    { id: 12, name: "Pedro A.",        type: "Alunos",                img: "../img/PedroA.png",    desc: "Aluno dedicado." },
+    { id: 13, name: "Victor",          type: "Alunos",                img: "../img/Victor.png",    desc: "Aluno dedicado." },
+    { id: 14, name: "Luiz",            type: "Alunos",                img: "../img/Luiz.png",      desc: "Aluno dedicado." },
+    { id: 15, name: "Mateus",          type: "Alunos",                img: "../img/Mateus.png",    desc: "Aluno dedicado." },
+    { id: 16, name: "Estevão",         type: "Alunos",                img: "../img/Estevao.png",   desc: "Aluno dedicado." },
+    { id: 17, name: "Emmanuel",        type: "Alunos",                img: "../img/Emmanuel.png",  desc: "Aluno dedicado." },
+    { id: 18, name: "Yuri",            type: "Alunos",                img: "../img/Yuri.png",      desc: "Aluno dedicada." },
+    { id: 19, name: "Luiza",           type: "Alunos",                img: "../img/Luiza.png",     desc: "Aluna dedicada." },
+    { id: 20, name: "Natasha",         type: "Alunos",                img: "../img/Natasha.png",   desc: "Aluna dedicada." }
 ];
 
 function renderizarTodoCatalogo(listaDeCartas) {

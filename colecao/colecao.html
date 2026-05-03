@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Estrutura para fixar o rodapé */
         html, body {
             height: 100%;
         }
@@ -16,7 +15,6 @@
             font-family: 'Inter', sans-serif;
             color: white;
             display: flex;
-            flex-grow: 1;
             flex-direction: column;
         }
         .hero-title {
@@ -24,22 +22,42 @@
             color: #f1c40f;
             text-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
         }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+
+        /* Card inteiro, sem cortar imagem */
         .card-colecao {
             border: 1px solid #f1c40f !important;
             transition: 0.3s;
+            background: rgba(20, 20, 20, 0.85) !important;
         }
         .card-colecao:hover {
-            box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
+            transform: translateY(-4px);
         }
-        /* Container que cresce para empurrar o footer */
-        .content-wrapper {
-            flex: 1 0 auto;
+        .card-colecao img {
+            width: 100%;
+            height: auto;        /* altura automática — carta inteira */
+            object-fit: contain; /* não corta, não distorce */
+            padding: 8px;
+            background: #0d0d0d;
+        }
+        .btn-remover {
+            background: transparent;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            font-size: 0.75rem;
+            transition: 0.3s;
+        }
+        .btn-remover:hover {
+            background: #dc3545;
+            color: white;
         }
     </style>
 </head>
 <body>
 
-    <!-- Wrapper para o conteúdo principal -->
     <div class="content-wrapper">
         <nav class="navbar navbar-dark bg-black border-bottom border-secondary mb-5">
             <div class="container">
@@ -60,7 +78,6 @@
         </div>
     </div>
 
-    <!-- Rodapé sempre no fim -->
     <footer class="bg-black text-white-50 py-4 border-top border-secondary text-center">
         <div class="container">
             <small>© 2026 Serratec Deck Builder - O conhecimento é sua melhor carta.</small>
@@ -70,47 +87,64 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-            
+
             if (!usuarioLogado) {
                 window.location.href = "../login/login.html";
                 return;
             }
 
-            // Usa o email ou e-mail como chave única
             const usuarioId = usuarioLogado.email || usuarioLogado["e-mail"];
             const chaveColecao = `deck_${usuarioId}`;
-            const minhaColecao = JSON.parse(localStorage.getItem(chaveColecao)) || [];
 
-            const container = document.getElementById('colecao-container');
+            function renderColecao() {
+                const minhaColecao = JSON.parse(localStorage.getItem(chaveColecao)) || [];
+                const container = document.getElementById('colecao-container');
 
-            if (minhaColecao.length === 0) {
-                container.innerHTML = `
-                    <div class="col-12 text-center mt-5">
-                        <p class="fs-4 opacity-50">Seu grimório está vazio...</p>
-                        <a href="catalogo.html" class="btn btn-warning">Ir às compras</a>
-                    </div>`;
-                return;
-            }
+                if (minhaColecao.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-12 text-center mt-5">
+                            <p class="fs-4 opacity-50">Seu grimório está vazio...</p>
+                            <a href="catalogo.html" class="btn btn-warning">Ir às compras</a>
+                        </div>`;
+                    return;
+                }
 
-            container.innerHTML = ""; 
-            minhaColecao.forEach(card => {
-                // Ajustado o caminho da imagem para ../img/
-                container.innerHTML += `
-                    <div class="col">
-                        <div class="card h-100 bg-dark text-white card-colecao">
-                            <img src="${card.img}" class="card-img-top p-2" 
-                                 style="height:300px; object-fit:cover;"
-                                 onerror="this.src='../img/padrao.png'">
-                            <div class="card-body text-center d-flex flex-column">
-                                <h5 class="fw-bold mb-0">${card.name}</h5>
-                                <p class="text-warning small mb-3">${card.type}</p>
-                                <div class="mt-auto">
-                                    <span class="badge bg-success w-100">ADQUIRIDA</span>
+                container.innerHTML = "";
+                minhaColecao.forEach((card, index) => {
+                    container.innerHTML += `
+                        <div class="col">
+                            <div class="card card-colecao text-white">
+                                <img src="${card.img}" 
+                                     alt="${card.name}"
+                                     onerror="this.src='../img/padrao.png'">
+                                <div class="card-body text-center d-flex flex-column">
+                                    <h5 class="fw-bold mb-0">${card.name}</h5>
+                                    <p class="text-warning small mb-3">${card.type}</p>
+                                    <div class="mt-auto d-flex flex-column gap-2">
+                                        <span class="badge bg-success w-100">ADQUIRIDA</span>
+                                        <button class="btn btn-remover w-100" onclick="removerCard(${index})">
+                                            🗑️ Remover da Coleção
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>`;
-            });
+                        </div>`;
+                });
+            }
+
+            // Expõe a função globalmente para o onclick funcionar
+            window.removerCard = function(index) {
+                const confirmou = confirm("Deseja remover esta carta da sua coleção?");
+                if (!confirmou) return;
+
+                const minhaColecao = JSON.parse(localStorage.getItem(chaveColecao)) || [];
+                minhaColecao.splice(index, 1);
+                localStorage.setItem(chaveColecao, JSON.stringify(minhaColecao));
+
+                renderColecao(); // Re-renderiza sem recarregar a página
+            };
+
+            renderColecao();
         });
     </script>
 </body>

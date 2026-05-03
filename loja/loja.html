@@ -18,6 +18,7 @@
         .pacote-img { height: 280px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(241,196,15,0.5)); transition: 0.3s; }
         .card-item:hover .pacote-img { filter: drop-shadow(0 0 30px rgba(241,196,15,0.8)); transform: translateY(-5px); }
         .preco { font-family: 'Cinzel', serif; color: #2ecc71; font-size: 2rem; }
+        .saldo-badge { background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.3); border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -25,12 +26,13 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold hero-title fs-3" href="../index.html">SERRATEC</a>
-            <div class="ms-auto d-flex align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link text-warning fw-bold" href="../colecao/colecao.html">✨ Minha Coleção &nbsp;</a>
-                </li>
-                <a class="btn btn-outline-warning position-relative me-3" href="../cart.html">
-                    🛒 Meu Carrinho
+            <div class="ms-auto d-flex align-items-center gap-2">
+                <span id="saldo-usuario" class="saldo-badge text-warning" style="display:none;">
+                    👤 <span id="nome-usuario"></span> &nbsp;|&nbsp; 💰 R$ <span id="valor-saldo">0,00</span>
+                </span>
+                <a class="nav-link text-warning fw-bold" href="../colecao/colecao.html">✨ Minha Coleção</a>
+                <a class="btn btn-outline-warning position-relative" href="../cart.html">
+                    🛒 Carrinho
                     <span id="cart-count" class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle">0</span>
                 </a>
                 <button onclick="logout()" class="btn btn-sm btn-danger">Sair</button>
@@ -45,8 +47,6 @@
 
     <main class="container mb-5 flex-grow-1">
         <div class="row justify-content-center g-4">
-
-            <!-- Card do Pacote -->
             <div class="col-sm-10 col-md-6 col-lg-4">
                 <div class="card card-item rounded-4 text-white text-center p-4 h-100">
                     <img src="../img/pacote.png" alt="Pacote Serratec" class="pacote-img mx-auto mb-4"
@@ -54,21 +54,16 @@
                     <h3 class="fw-bold hero-title mb-2">Pacote Serratec 2026</h3>
                     <p class="text-white-50 mb-3">Contém 3 cartas aleatórias de professores e alunos.</p>
                     <p class="preco mb-4">R$ 3,00</p>
-
-                    <!-- Seletor de Quantidade -->
                     <div class="d-flex justify-content-center align-items-center mb-4">
                         <button class="btn btn-outline-light px-3" onclick="alterarQtd(-1)">−</button>
-                        <input type="number" id="qtd-pacotes" value="1" min="1"
-                               class="form-control qtd-input mx-3" readonly>
+                        <input type="number" id="qtd-pacotes" value="1" min="1" class="form-control qtd-input mx-3" readonly>
                         <button class="btn btn-outline-light px-3" onclick="alterarQtd(1)">+</button>
                     </div>
-
                     <button onclick="adicionarPacoteAoCarrinho()" class="btn btn-gold w-100 py-3 fs-5">
                         🛒 ADICIONAR AO CARRINHO
                     </button>
                 </div>
             </div>
-
         </div>
     </main>
 

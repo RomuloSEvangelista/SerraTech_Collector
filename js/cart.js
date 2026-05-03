@@ -207,3 +207,82 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
     updateCartCounter();
 });
+
+
+async function checkout() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert("Seu deck está vazio! Adicione cartas antes de finalizar.");
+        return;
+    }
+
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (!usuarioLogado) {
+        alert("Você precisa estar logado!");
+        return;
+    }
+
+    try {
+        // 1. Busca usuário atualizado na API
+        const resUser = await fetch(`${API_URL}/${usuarioLogado.id}`);
+        const usuarioAtual = await resUser.json();
+
+        // 2. Calcula total da compra
+        const totalCompra = cart.reduce((acc, item) => {
+            return acc + (parseFloat(item.price) || 0) * (item.quantity || 1);
+        }, 0);
+
+        // 3. Verifica saldo
+        const saldoAtual = parseFloat(usuarioAtual.dinheiro) || 0;
+        if (saldoAtual < totalCompra) {
+            alert(`Saldo insuficiente! ❌\n\nSeu saldo: R$ ${saldoAtual.toFixed(2).replace('.', ',')}\nTotal da compra: R$ ${totalCompra.toFixed(2).replace('.', ',')}\n\nPor favor, solicite mais saldo à Administração do site.`);
+            return;
+        }
+
+        // 4. Sorteia cards dos pacotes
+        const idCardsAtuais = usuarioAtual.id_card || [];
+        let cardsSorteados = [];
+
+        cart.forEach(item => {
+            if (item.isBooster) {
+                const totalSorteios = (item.quantity || 1) * 3;
+                for (let i = 0; i < totalSorteios; i++) {
+                    const numeroSorteado = Math.floor(Math.random() * 20) + 1;
+                    idCardsAtuais.push(numeroSorteado);
+                    cardsSorteados.push(numeroSorteado);
+                }
+            }
+        });
+
+        // 5. Salva cards e subtrai saldo na API
+        const novoSaldo = saldoAtual - totalCompra;
+
+        const resPut = await fetch(`${API_URL}/${usuarioLogado.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id_card: idCardsAtuais,
+                dinheiro: novoSaldo
+            })
+        });
+
+        if (!resPut.ok) throw new Error("Erro ao salvar");
+
+        // 6. Atualiza localStorage
+        usuarioAtual.id_card = idCardsAtuais;
+        usuarioAtual.dinheiro = novoSaldo;
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtual));
+
+        const msgSorteio = cardsSorteados.length > 0
+            ? `\n\n✨ IDs sorteados: ${cardsSorteados.join(', ')}`
+            : "";
+
+        alert(`Invocação Completa! ✅\n\nSaldo restante: R$ ${novoSaldo.toFixed(2).replace('.', ',')}${msgSorteio}`);
+        localStorage.removeItem('cart');
+        window.location.replace("colecao/colecao.html");
+
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao processar a compra. Tente novamente.");
+    }
+}

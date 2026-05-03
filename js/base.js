@@ -196,3 +196,40 @@ function logout() {
     localStorage.removeItem('usuarioLogado');
     window.location.href = "../login/login.html";
 }
+
+
+
+// ==========================================
+// --- EXIBIR NOME E SALDO NA NAVBAR ---
+// ==========================================
+async function carregarSaldoNavbar() {
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (!usuarioLogado || !usuarioLogado.id) return;
+
+    const nomeElem  = document.getElementById('nome-usuario');
+    const saldoElem = document.getElementById('valor-saldo');
+    const boxElem   = document.getElementById('saldo-usuario');
+
+    if (!boxElem) return;
+
+    try {
+        const res = await fetch(`${API_URL}/${usuarioLogado.id}`);
+        const usuarioAtual = await res.json();
+
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtual));
+
+        if (nomeElem)  nomeElem.innerText  = usuarioAtual.nome || 'Mestre';
+        if (saldoElem) saldoElem.innerText = parseFloat(usuarioAtual.dinheiro || 0).toFixed(2).replace('.', ',');
+        boxElem.style.display = 'inline';
+
+    } catch (err) {
+        // Fallback para localStorage
+        if (nomeElem)  nomeElem.innerText  = usuarioLogado.nome || 'Mestre';
+        if (saldoElem) saldoElem.innerText = parseFloat(usuarioLogado.dinheiro || 0).toFixed(2).replace('.', ',');
+        boxElem.style.display = 'inline';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    carregarSaldoNavbar();
+});

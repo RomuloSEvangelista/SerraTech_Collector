@@ -8,63 +8,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         html, body { height: 100%; }
-        body { 
-            background: radial-gradient(circle, #1a1a2e 0%, #000000 100%); 
-            font-family: 'Inter', sans-serif;
-            color: white;
-            display: flex;
-            flex-direction: column;
-        }
+        body { background: radial-gradient(circle, #1a1a2e 0%, #000000 100%); font-family: 'Inter', sans-serif; color: white; display: flex; flex-direction: column; }
         .hero-title { font-family: 'Cinzel', serif; color: #f1c40f; text-shadow: 0 0 15px rgba(241, 196, 15, 0.5); }
         .content-wrapper { flex: 1 0 auto; }
-        .card-colecao {
-            border: 1px solid #f1c40f !important;
-            transition: 0.3s;
-            background: rgba(20, 20, 20, 0.85) !important;
-        }
-        .card-colecao:hover {
-            box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
-            transform: translateY(-4px);
-        }
-        .card-colecao img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            padding: 8px;
-            background: #0d0d0d;
-        }
-        .btn-remover {
-            background: transparent;
-            border: 1px solid #dc3545;
-            color: #dc3545;
-            font-size: 0.75rem;
-            transition: 0.3s;
-        }
+        .card-colecao { border: 1px solid #f1c40f !important; transition: 0.3s; background: rgba(20, 20, 20, 0.85) !important; }
+        .card-colecao:hover { box-shadow: 0 0 20px rgba(241, 196, 15, 0.4); transform: translateY(-4px); }
+        .card-colecao img { width: 100%; height: auto; object-fit: contain; padding: 8px; background: #0d0d0d; }
+        .btn-remover { background: transparent; border: 1px solid #dc3545; color: #dc3545; font-size: 0.75rem; transition: 0.3s; }
         .btn-remover:hover { background: #dc3545; color: white; }
+        .saldo-badge { background: rgba(241,196,15,0.1); border: 1px solid rgba(241,196,15,0.3); border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-
     <div class="content-wrapper">
-        <nav class="navbar navbar-dark bg-black border-bottom border-secondary mb-3">
-            
-       <a class="navbar-brand hero-title fs-3" href="../index.html">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;SERRATEC</a>
-        <div class="d-flex gap-2">
-            <a href="catalogo.html" class="btn btn-outline-light btn-sm">Voltar ao Catálogo</a>
-            <button onclick="logout()" class="btn btn-sm btn-danger">Sair</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        </div>
-    
+        <nav class="navbar navbar-dark bg-black border-bottom border-secondary mb-5">
+            <div class="container">
+                <a class="navbar-brand hero-title fs-3" href="../index.html">SERRATEC</a>
+                <div class="d-flex align-items-center gap-2">
+                    <span id="saldo-usuario" class="saldo-badge text-warning" style="display:none;">
+                        👤 <span id="nome-usuario"></span> &nbsp;|&nbsp; 💰 R$ <span id="valor-saldo">0,00</span>
+                    </span>
+                    <a href="catalogo.html" class="btn btn-outline-light btn-sm">Voltar ao Catálogo</a>
+                    <button onclick="logout()" class="btn btn-sm btn-danger">Sair</button>
+                </div>
             </div>
         </nav>
-        
+
         <div class="container mb-5">
             <header class="text-center mb-3">
                 <h1 class="hero-title display-4">Meu Deck Pessoal</h1>
                 <p class="text-white-50">Estas são as relíquias que você já conquistou.</p>
             </header>
-
             <div id="colecao-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
-         <!-- JS injeta aqui -->
+                <!-- JS injeta aqui -->
             </div>
         </div>
     </div>
@@ -77,30 +53,27 @@
 
     <script src="../js/base.js"></script>
     <script>
-        // price é número puro — o R$ é adicionado na exibição
         const baseCartasOficial = [
-            { id_card: 1, name: "Prof. Raphael",   price: 85.00, type: "Logica de Programação", img: "../img/Raphael.png"   },
-            { id_card: 2, name: "Prof. Romulo",    price: 65.00, type: "Banco de Dados",        img: "../img/Romulo.png"    },
-            { id_card: 3, name: "Ivy",             price: 3.00,  type: "Alunos",                img: "../img/ivy.png"       },
-            { id_card: 4, name: "Prof. Breno",     price: 75.00, type: "POO",                   img: "../img/breno.png"     },
-            { id_card: 5, name: "Prof. Menegueli", price: 80.00, type: "Front End",             img: "../img/menegueli.png" },
-            //novos a partir daqui
-
-            { id_card: 6,  name: "Leilton",        price: 2.50,  type: "Alunos",                img: "../img/Leilton.png" },
-            { id_card: 7,  name: "Arthur",         price: 25.00, type: "Alunos",                img: "../img/Arthur.png" },
-            { id_card: 8,  name: "Gabriel",        price: 90.00, type: "Alunos",                img: "../img/Gabriel.png" },
-            { id_card: 9,  name: "Bruno",          price: 70.00, type: "Alunos",                img: "../img/bruno.png" },
-            { id_card: 10, name: "Elena ",         price: 95.00, type: "Alunos",                img: "../img/elena.png" },
-            { id_card: 11, name: "Marcos",         price: 80.00, type: "Alunos",                img: "../img/marcos.png" },
-            { id_card: 12, name: "Profa. Julia",   price: 88.00, type: "Alunos",                img: "../img/julia.png" },
-            { id_card: 13, name: "Prof. Fabio",    price: 72.00, type: "Alunos",                img: "../img/fabio.png" },
-            { id_card: 14, name: "Marina",         price: 82.00, type: "Alunos",                img: "../img/marina.png" },
-            { id_card: 15, name: "Prof. Andre",    price: 78.00, type: "Alunos",                img: "../img/andre.png" },
-            { id_card: 16, name: "Beatriz",        price: 92.00, type: "Alunos",                img: "../img/beatriz.png" },
-            { id_card: 17, name: "Prof. Thiago",   price: 85.00, type: "Alunos",                img: "../img/thiago.png" },
-            { id_card: 18, name: "Sofia",          price: 80.00, type: "Alunos",                img: "../img/sofia.png" },
-            { id_card: 19, name: "Igor Rocha",     price: 75.00, type: "Alunos",                img: "../img/igor.png" },
-            { id_card: 20, name: "Leticia Paz",    price: 89.00, type: "Alunos",                img: "../img/leticia.png" }
+            { id_card: 1,  name: "Prof. Raphael",   price: 85.00, type: "Logica de Programação", img: "../img/Raphael.png"   },
+            { id_card: 2,  name: "Prof. Romulo",    price: 65.00, type: "Banco de Dados",        img: "../img/Romulo.png"    },
+            { id_card: 3,  name: "Ivy",             price: 3.00,  type: "Alunos",                img: "../img/ivy.png"       },
+            { id_card: 4,  name: "Prof. Breno",     price: 75.00, type: "POO",                   img: "../img/breno.png"     },
+            { id_card: 5,  name: "Prof. Menegueli", price: 80.00, type: "Front End",             img: "../img/menegueli.png" },
+            { id_card: 6,  name: "Leilton",         price: 2.50,  type: "Alunos",                img: "../img/Leilton.png"   },
+            { id_card: 7,  name: "Arthur",          price: 25.00, type: "Alunos",                img: "../img/Arthur.png"    },
+            { id_card: 8,  name: "Gabriel",         price: 90.00, type: "Alunos",                img: "../img/Gabriel.png"   },
+            { id_card: 9,  name: "Bruno",           price: 70.00, type: "Alunos",                img: "../img/bruno.png"     },
+            { id_card: 10, name: "Elena",           price: 95.00, type: "Alunos",                img: "../img/elena.png"     },
+            { id_card: 11, name: "Marcos",          price: 80.00, type: "Alunos",                img: "../img/marcos.png"    },
+            { id_card: 12, name: "Profa. Julia",    price: 88.00, type: "Alunos",                img: "../img/julia.png"     },
+            { id_card: 13, name: "Prof. Fabio",     price: 72.00, type: "Alunos",                img: "../img/fabio.png"     },
+            { id_card: 14, name: "Marina",          price: 82.00, type: "Alunos",                img: "../img/marina.png"    },
+            { id_card: 15, name: "Prof. Andre",     price: 78.00, type: "Alunos",                img: "../img/andre.png"     },
+            { id_card: 16, name: "Beatriz",         price: 92.00, type: "Alunos",                img: "../img/beatriz.png"   },
+            { id_card: 17, name: "Prof. Thiago",    price: 85.00, type: "Alunos",                img: "../img/thiago.png"    },
+            { id_card: 18, name: "Sofia",           price: 80.00, type: "Alunos",                img: "../img/sofia.png"     },
+            { id_card: 19, name: "Igor Rocha",      price: 75.00, type: "Alunos",                img: "../img/igor.png"      },
+            { id_card: 20, name: "Leticia Paz",     price: 89.00, type: "Alunos",                img: "../img/leticia.png"   }
         ];
 
         function getCardById(id_card) {
@@ -109,11 +82,7 @@
 
         document.addEventListener('DOMContentLoaded', async () => {
             const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-
-            if (!usuarioLogado) {
-                window.location.href = "../login/login.html";
-                return;
-            }
+            if (!usuarioLogado) { window.location.href = "../login/login.html"; return; }
 
             const container = document.getElementById('colecao-container');
             container.innerHTML = `<div class="col-12 text-center text-white-50"><p>Carregando coleção...</p></div>`;
@@ -121,23 +90,22 @@
             try {
                 const res = await fetch(`https://69f60881a72f01a951b91cd8.mockapi.io/cards/${usuarioLogado.id}`);
                 const usuarioAtual = await res.json();
-
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtual));
 
                 const idCards = usuarioAtual.id_card || [];
 
                 if (idCards.length === 0) {
                     container.innerHTML = `
-                <div style="width:100%; text-align:center; padding-top: 3rem;">
-                    <p class="fs-4 opacity-50">Seu grimório está vazio...</p>
-                    <a href="../loja/loja.html" class="btn btn-warning">Ir à Loja</a>
-                </div>`;
+                        <div style="width:100%; text-align:center; padding-top:3rem;">
+                            <p class="fs-4 opacity-50">Seu grimório está vazio...</p>
+                            <a href="../loja/loja.html" class="btn btn-warning">Ir à Loja</a>
+                        </div>`;
                     return;
                 }
 
                 container.innerHTML = "";
                 idCards.forEach((idCard, index) => {
-                    const card = getCardById(idCard);
+                    const card  = getCardById(idCard);
                     const nome  = card ? card.name  : `Card #${idCard}`;
                     const tipo  = card ? card.type  : "Desconhecido";
                     const img   = card ? card.img   : "https://placehold.co/350x450?text=Card";
@@ -146,8 +114,7 @@
                     container.innerHTML += `
                         <div class="col">
                             <div class="card card-colecao text-white">
-                                <img src="${img}" alt="${nome}"
-                                     onerror="this.src='https://placehold.co/350x450?text=Card'">
+                                <img src="${img}" alt="${nome}" onerror="this.src='https://placehold.co/350x450?text=Card'">
                                 <div class="card-body text-center d-flex flex-column">
                                     <h5 class="fw-bold mb-0">${nome}</h5>
                                     <p class="text-warning small mb-3">${tipo}</p>
@@ -171,17 +138,14 @@
             window.removerCard = async function(index) {
                 const confirmou = confirm("Deseja remover esta carta da sua coleção?");
                 if (!confirmou) return;
-
                 const usuarioAtual = JSON.parse(localStorage.getItem('usuarioLogado'));
                 const idCards = usuarioAtual.id_card || [];
                 idCards.splice(index, 1);
-
                 await fetch(`https://69f60881a72f01a951b91cd8.mockapi.io/cards/${usuarioAtual.id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id_card: idCards })
                 });
-
                 usuarioAtual.id_card = idCards;
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuarioAtual));
                 location.reload();

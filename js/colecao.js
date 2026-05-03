@@ -15,7 +15,6 @@ const baseCartasOficial = [
             { id: "9",  name: "Icaro",          price: 13.00,  img: "../img/Icaro.png",     type: "Alunos"},
             { id: "10", name: "Guilherme",      price: 25.00,  img: "../img/Guilherme.png", type: "Alunos"},
 
-
               //novos a partir daqui
             { id: "11", name: "Wenderson",      price: 80.00,  img: "../img/Wenderson.png", type: "Alunos"},
             { id: "12", name: "Pedro A.",       price: 88.00,  img: "../img/PedroA.png",    type: "Alunos"},

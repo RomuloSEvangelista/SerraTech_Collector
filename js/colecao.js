@@ -4,28 +4,26 @@
  */
 
 const baseCartasOficial = [
-            { id: "1", name: "Prof. Raphael",   price: 85,     img: "../img/Raphael.png",   type: "Logica de Programação" },
-            { id: "2", name: "Prof. Romulo",    price: 65,     img: "../img/Romulo.png",    type: "Banco de Dados" },
-            { id: "3", name: "Ivy",             price: 3,      img: "../img/ivy.png",       type: "Alunos" },
-            { id: "4", name: "Prof. Breno",     price: 80,     img: "../img/breno.png",     type: "POO" },
-            { id: "5", name: "Prof. Menegueli", price: 90,     img: "../img/menegueli.png", type: "Front End" },
+            { id: "1", name: "Prof. Raphael",   price: 850.00,     img: "../img/Raphael.png",   type: "Logica de Programação" },
+            { id: "2", name: "Prof. Romulo",    price: 121.00,     img: "../img/Romulo.png",    type: "Banco de Dados" },
+            { id: "3", name: "Ivy",             price: 3.00,      img: "../img/ivy.png",       type: "Alunos" },
+            { id: "4", name: "Prof. Breno",     price: 250.00,     img: "../img/breno.png",     type: "POO" },
+            { id: "5", name: "Prof. Menegueli", price: 200.00,     img: "../img/menegueli.png", type: "Front End" },
             { id: "6", name: "Leilton",         price: 2.50,   img: "../img/Leilton.png",   type: "Alunos"},
             { id: "7",  name: "Arthur",         price: 15.00,  img: "../img/Arthur.png",    type: "Alunos"},
             { id: "8",  name: "Gabriel",        price: 0.50,   img: "../img/Gabriel.png",   type: "Alunos"},
-            { id: "9",  name: "Icaro",          price: 13.00,  img: "../img/Icaro.png",     type: "Alunos"},
+            { id: "9",  name: "Icaro",          price: 33.00,  img: "../img/Icaro.png",     type: "Alunos"},
             { id: "10", name: "Guilherme",      price: 25.00,  img: "../img/Guilherme.png", type: "Alunos"},
-
-              //novos a partir daqui
-            { id: "11", name: "Wenderson",      price: 80.00,  img: "../img/Wenderson.png", type: "Alunos"},
-            { id: "12", name: "Pedro A.",       price: 88.00,  img: "../img/PedroA.png",    type: "Alunos"},
-            { id: "13", name: "Victor",         price: 72.00,  img: "../img/Victor.png",    type: "Alunos"},
+            { id: "11", name: "Wenderson",      price: 91.50,  img: "../img/Wenderson.png", type: "Alunos"},
+            { id: "12", name: "Pedro A.",       price: 84.00,  img: "../img/PedroA.png",    type: "Alunos"},
+            { id: "13", name: "Victor",         price: 62.00,  img: "../img/Victor.png",    type: "Alunos"},
             { id: "14", name: "Luiz",           price: 82.00,  img: "../img/Luiz.png",      type: "Alunos"},
             { id: "15", name: "Mateus",         price: 78.00,  img: "../img/Mateus.png",    type: "Alunos"},
-            { id: "16", name: "Estevão",        price: 92.00,  img: "../img/Estevao.png",   type: "Alunos"},
-            { id: "17", name: "Emmanuel",       price: 85.00,  img: "../img/Emmanuel.png",  type: "Alunos"},
-            { id: "18", name: "Yuri",           price: 80.00,  img: "../img/Yuri.png",      type: "Alunos"},
-            { id: "19", name: "Luiza",          price: 75.00,  img: "../img/Luiza.png",     type: "Alunos"},
-            { id: "20", name: "Natasha",        price: 89.00,  img: "../img/Natacha.png",   type: "Alunos"}
+            { id: "16", name: "Estevão",        price: 71.00,  img: "../img/Estevao.png",   type: "Alunos"},
+            { id: "17", name: "Emanuel",       price: 85.00,   img: "../img/Emmanuel.png",  type: "Alunos"},
+            { id: "18", name: "Yuri",           price: 97.00,  img: "../img/Yuri.png",      type: "Alunos"},
+            { id: "19", name: "Luisa",          price: 89.00,  img: "../img/Luiza.png",     type: "Alunos"},
+            { id: "20", name: "Natasha",        price: 75.00,  img: "../img/Natacha.png",   type: "Alunos"}
 ];
 
 function getCardById(id) {

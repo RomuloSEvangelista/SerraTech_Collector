@@ -10,7 +10,7 @@ const cartasDisponiveis = [
     { id: 4,  name: "Prof. Breno",     type: "POO",                   img: "../img/breno.png",     desc: "Mago POO." },
     { id: 5,  name: "Prof. Menegueli", type: "Front End",             img: "../img/menegueli.png", desc: "Mestre do Front End." },
     { id: 6,  name: "Leilton",         type: "Alunos",                img: "../img/Leilton.png",   desc: "Aluno dedicado." },
-    { id: 7,  name: "Arthut",          type: "Alunos",                img: "../img/Arthur.png",    desc: "Aluno dedicado." },
+    { id: 7,  name: "Arthur",          type: "Alunos",                img: "../img/Arthur.png",    desc: "Aluno dedicado." },
     { id: 8,  name: "Gabriel",         type: "Alunos",                img: "../img/Gabriel.png",   desc: "Aluno dedicado." },
     { id: 9,  name: "Icaro",           type: "Alunos",                img: "../img/Icaro.png",     desc: "Aluno dedicado." },
     { id: 10, name: "Guilherme",       type: "Alunos",                img: "../img/Guilherme.png", desc: "Aluno dedicado." },
@@ -20,12 +20,13 @@ const cartasDisponiveis = [
     { id: 14, name: "Luiz",            type: "Alunos",                img: "../img/Luiz.png",      desc: "Aluno dedicado." },
     { id: 15, name: "Mateus",          type: "Alunos",                img: "../img/Mateus.png",    desc: "Aluno dedicado." },
     { id: 16, name: "Estevão",         type: "Alunos",                img: "../img/Estevao.png",   desc: "Aluno dedicado." },
-    { id: 17, name: "Emanuel",        type: "Alunos",                 img: "../img/Emmanuel.png",  desc: "Aluno dedicado." },
+    { id: 17, name: "Emanuel",         type: "Alunos",                img: "../img/Emmanuel.png",  desc: "Aluno dedicado." },
     { id: 18, name: "Yuri",            type: "Alunos",                img: "../img/Yuri.png",      desc: "Aluno dedicada." },
     { id: 19, name: "Luisa",           type: "Alunos",                img: "../img/Luiza.png",     desc: "Aluna dedicada." },
     { id: 20, name: "Natasha",         type: "Alunos",                img: "../img/Natasha.png",   desc: "Aluna dedicada." }
 ];
 
+// Função para renderizar
 function renderizarTodoCatalogo(listaDeCartas) {
     const containerCatalogo = document.getElementById('card-container-catalogo');
     if (!containerCatalogo) return;
@@ -72,11 +73,34 @@ function renderizarTodoCatalogo(listaDeCartas) {
     });
 }
 
+// NOVA FUNÇÃO: Lógica de Filtro
+function filtrarCatalogo() {
+    const termo = document.getElementById('searchInputCatalogo').value.toLowerCase();
+    const tipo = document.getElementById('filterTypeCatalogo').value;
+
+    const filtrados = cartasDisponiveis.filter(card => {
+        const bateNome = card.name.toLowerCase().includes(termo);
+        const bateTipo = (tipo === "all") || (card.type === tipo);
+        return bateNome && bateTipo;
+    });
+
+    renderizarTodoCatalogo(filtrados);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Verificação de login
     if (!localStorage.getItem('usuarioLogado')) {
         window.location.replace("../login/login.html");
         return;
     }
 
+    // Render inicial
     renderizarTodoCatalogo(cartasDisponiveis);
+
+    // Vínculo dos eventos de filtro
+    const inputBusca = document.getElementById('searchInputCatalogo');
+    const selectFiltro = document.getElementById('filterTypeCatalogo');
+
+    if (inputBusca) inputBusca.addEventListener('input', filtrarCatalogo);
+    if (selectFiltro) selectFiltro.addEventListener('change', filtrarCatalogo);
 });

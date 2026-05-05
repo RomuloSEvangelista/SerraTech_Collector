@@ -8,7 +8,7 @@ O **Serratec Collector** é uma plataforma interativa de gerenciamento e coleç�
 
 ## 🔗 Demonstração ao Vivo
 Experimente o projeto em tempo real:
-👉 **[Acessar Serratec Collector](https://romulosevangelista.github.io/Teste/index.html)**
+👉 **[Acessar Serratec Collector](https://romulosevangelista.github.io/SerraTech_Collector/)**
 
 ---
 

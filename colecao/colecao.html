@@ -29,7 +29,7 @@
                         👤 <span id="nome-usuario"></span> &nbsp;|&nbsp; 💰 R$ <span id="valor-saldo">0,00</span>
                     </span>
                     <a href="catalogo.html" class="btn btn-outline-light btn-sm">Voltar ao Catálogo</a>
-                    <button onclick="logout()" class="btn btn-sm btn-danger">Sair</button>
+                    <a href="../login/login.html" class="btn btn-sm btn-danger">Sair</a>
                 </div>
             </div>
         </nav>
@@ -91,7 +91,7 @@
 
         document.addEventListener('DOMContentLoaded', async () => {
             const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-            if (!usuarioLogado) { window.location.href = "../login/login.html"; return; }
+            if (!usuarioLogado) { window.location.href = "./login/login.html"; return; }
 
             const container = document.getElementById('colecao-container');
             container.innerHTML = `<div class="col-12 text-center text-white-50"><p>Carregando coleção...</p></div>`;
